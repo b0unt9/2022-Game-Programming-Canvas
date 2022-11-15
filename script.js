@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             draw: function () {
+                ctx.fillStyle = "#5472d3";
                 ctx.fillRect(x, y, w, h);
             },
 
