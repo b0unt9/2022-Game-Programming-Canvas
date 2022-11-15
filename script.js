@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             draw: function (b) {
-                ctx.fillStyle = "#5472d3";
+                if(player.isDead()) ctx.fillStyle = "#d50000";
+                else ctx.fillStyle = "#5472d3";
                 ctx.fillRect(b.x, b.y, b.w, b.h);
             },
 
@@ -261,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = "14px Verdana";
 
         if (player.isDead()) {
+            ctx.fillStyle = "#d50000";
             ctx.fillText("게임 오버!", 10, 50);
             ctx.fillText("다시 시작: [SPACE]", 10, 70);
         } else {
