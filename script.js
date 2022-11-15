@@ -177,14 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCtrl() {
-        if (ctrl.keys[32]) {
-            if (player.isDead()) {
-                ctrl.x = 0;
-                ctrl.y = canvas.height / 2;
-                ctrl.velX = 0;
-                ctrl.velY = 0;
-                player.resurrect();
-            }
+        if (ctrl.keys.Escape) {
+            ctrl.x = 100;
+            ctrl.y = canvas.height / 2;
+            ctrl.velX = 0;
+            ctrl.velY = 0;
+            player.resurrect();
         }
 
         if (ctrl.keys.ArrowUp) {
@@ -267,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillStyle = "#5472d3";
             ctx.fillText("장애물을 피해 반대편으로 건너가기", 10, 20);
             ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
+            ctx.fillText("위치 초기화 : ESC", 10, 60);
             ctx.fillText("죽은 회수 : " + player.getDeath(),10,100);
         }
     }
