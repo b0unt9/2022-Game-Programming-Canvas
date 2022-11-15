@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return Math.round((Math.floor(Math.random() * (max - min + 1)) + min) / interval) * interval;
     }
 
+    function randIndex(thearray) {
+        return thearray[rand(1, thearray.length) - 1];
+    }
+
     const player = (function () {
         let x = 100,
             y = canvas.height / 2,
@@ -86,16 +90,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 h_min: 15,
                 h_max: 100,
                 speed_min: 0.5,
-                speed_max: 5
+                speed_max: 5,
+                direction : ['up','down']
             };
 
 
-        function Block() {
+        function Block(direction) {
             this.w = 10;
             this.h = 50;
             this.x = rand(210, 700, 10);
             this.y = canvas.height;
             this.speed = 1;
+            this.direction = direction;
+            if(direction === "up") {
+                this.y = canvas.height;
+            }
+            else {
+                this.y -= canvas.height;
+            }
         }
 
         return {
@@ -118,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             createXBlocks: function (n) {
                 for (let i = 0; i < n; ++i) {
-                    blocks.push(new Block());
+                    blocks.push(new Block(randIndex(start.direction)));
                 }
             },
 
@@ -139,10 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 for (let i = 0; i < blocks.length; ++i) {
-                    blocks[i].y += blocks[i].speed;
-                    if (blocks[i].y > canvas.height) {
-                        blocks[i].y = 0;
-                        blocks[i].y -= rand(10, 350);
+                    if(blocks[i].direction === 'up') {
+                        blocks[i].y -= blocks[i].speed;
+                        if((blocks[i].y + blocks[i].h) < 0) {
+                            blocks[i].y = canvas.height + rand(10, 350);
+                        }
+                    }
+                    else {
+                        blocks[i].y += blocks[i].speed;
+                        if(blocks[i].y > canvas.height) {
+                            blocks[i].y = 0;
+                            blocks[i].y -= rand(10, 350);
+                        }
                     }
 
                     if (((px > blocks[i].x) && (px < (blocks[i].x + blocks[i].w))) &&
