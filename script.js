@@ -185,25 +185,25 @@ document.addEventListener('DOMContentLoaded', () => {
             player.resurrect();
         }
 
-        if (ctrl.keys.ArrowUp || ctrl.keys.i) {
+        if (ctrl.keys.ArrowUp || ctrl.keys.i || ctrl.keys.w) {
             if (ctrl.velY > -ctrl.speed) {
                 ctrl.velY--;
             }
         }
 
-        if (ctrl.keys.ArrowDown || ctrl.keys.k) {
+        if (ctrl.keys.ArrowDown || ctrl.keys.k || ctrl.keys.s) {
             if (ctrl.velY < ctrl.speed) {
                 ctrl.velY++;
             }
         }
 
-        if (ctrl.keys.ArrowRight || ctrl.keys.l) {
+        if (ctrl.keys.ArrowRight || ctrl.keys.l || ctrl.keys.d) {
             if (ctrl.velX < ctrl.speed) {
                 ctrl.velX++;
             }
         }
 
-        if (ctrl.keys.ArrowLeft || ctrl.keys.j) {
+        if (ctrl.keys.ArrowLeft || ctrl.keys.j || ctrl.keys.a) {
             if (ctrl.velX > -ctrl.speed) {
                 ctrl.velX--;
             }
