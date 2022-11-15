@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             y = canvas.height / 2,
             w = 10,
             h = 10,
-            dead = false
+            dead = false,
+            death = 0
 
         return {
             getX: function () {
@@ -36,6 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             die: function () {
                 dead = true;
+                death++;
+            },
+
+            getDeath: function() {
+                return death;
             },
 
             resurrect: function () {
@@ -260,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             ctx.fillText("장애물을 피해 반대편으로 건너가기", 10, 20);
             ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
+            ctx.fillText("죽은 회수 : " + player.getDeath(),10,100);
         }
     }
 
