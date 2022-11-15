@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             die: function () {
                 dead = true;
+                let sound = new Audio('warning-sound.mp3');
+                sound.play();
                 death++;
             },
 
