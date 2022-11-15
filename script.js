@@ -177,10 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCtrl() {
-
-
-        // restart
-        if (ctrl.keys [32]) {
+        if (ctrl.keys[32]) {
             if (player.isDead()) {
                 ctrl.x = 0;
                 ctrl.y = canvas.height / 2;
@@ -190,24 +187,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // check the keys and do the movement.
-        if (ctrl.keys[38]) {
+        if (ctrl.keys.ArrowUp) {
             if (ctrl.velY > -ctrl.speed) {
                 ctrl.velY--;
             }
         }
 
-        if (ctrl.keys[40]) {
+        if (ctrl.keys.ArrowDown) {
             if (ctrl.velY < ctrl.speed) {
                 ctrl.velY++;
             }
         }
-        if (ctrl.keys[39]) {
+
+        if (ctrl.keys.ArrowRight) {
             if (ctrl.velX < ctrl.speed) {
                 ctrl.velX++;
             }
         }
-        if (ctrl.keys[37]) {
+
+        if (ctrl.keys.ArrowLeft) {
             if (ctrl.velX > -ctrl.speed) {
                 ctrl.velX--;
             }
@@ -239,11 +237,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCtrl();
 
     document.body.addEventListener("keydown", function (e) {
-        ctrl.keys[e.keyCode] = true;
+        ctrl.keys[e.key] = true;
     });
 
     document.body.addEventListener("keyup", function (e) {
-        ctrl.keys[e.keyCode] = false;
+        ctrl.keys[e.key] = false;
     });
 
     blocks.run();
