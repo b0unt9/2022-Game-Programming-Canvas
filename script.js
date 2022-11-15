@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    document.body.appendChild(canvas);
-
+    
     function rand(min, max, interval) {
         if (interval === undefined) interval = 1;
         return Math.round((Math.floor(Math.random() * (max - min + 1)) + min) / interval) * interval;
