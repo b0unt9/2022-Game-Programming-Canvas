@@ -1,4 +1,4 @@
-$(function () {
+document.addEventListener('DOMContentLoaded', () => {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -269,5 +269,4 @@ $(function () {
         update();
         draw();
     }, 1000 / 60);
-
 });
