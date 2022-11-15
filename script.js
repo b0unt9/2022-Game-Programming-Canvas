@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var canvas = document.getElementById('game');
     var ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.8;
+
     function rand(min, max, interval) {
         if (interval === undefined) interval = 1;
         return Math.round((Math.floor(Math.random() * (max - min + 1)) + min) / interval) * interval;
