@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return Math.round((Math.floor(Math.random() * (max - min + 1)) + min) / interval) * interval;
     }
 
-    var player = (function () {
-        var x = 100,
+    const player = (function () {
+        let x = 100,
             y = canvas.height / 2,
             w = 10,
             h = 10,
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
 
-    var blocks = (function () {
-        var blocks = [],
+    const blocks = (function () {
+        let blocks = [],
             start = {
                 n: 10,
                 x1: 210,
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             run: function () {
                 blocks = [];
-                var n = Math.ceil(start.n + 1.3);
+                let n = Math.ceil(start.n + 1.3);
                 this.createXBlocks(n);
             },
 
@@ -117,13 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             createXBlocks: function (n) {
-                for (i = 0; i < n; ++i) {
+                for (let i = 0; i < n; ++i) {
                     blocks.push(new Block());
                 }
             },
 
             moveAll: function () {
-                var px = player.getX(),
+                let px = player.getX(),
                     py = player.getY(),
                     pw = player.getW(),
                     ph = player.getH();
@@ -138,8 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                var len = blocks.length;
-                for (i = 0; i < len; ++i) {
+                for (let i = 0; i < blocks.length; ++i) {
                     blocks[i].y += blocks[i].speed;
                     if (blocks[i].y > canvas.height) {
                         blocks[i].y = 0;
@@ -158,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             drawAll: function () {
-                for (var i in blocks) {
+                for (let i in blocks) {
                     this.draw(blocks[i]);
                 }
             },
@@ -167,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
 
-    var ctrl = {
+    let ctrl = {
         x: 100,
         y: (canvas.height / 2),
         velY: 0,
