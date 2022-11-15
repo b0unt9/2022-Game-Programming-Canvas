@@ -255,11 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = "14px Verdana";
 
         if (player.isDead()) {
-            ctx.fillText("Game over!", 10, 50);
-            ctx.fillText("Press [SPACE]", 10, 70);
+            ctx.fillText("게임 오버!", 10, 50);
+            ctx.fillText("다시 시작: [SPACE]", 10, 70);
         } else {
-            ctx.fillText("Cross to the other side", 10, 20);
-            ctx.fillText("Use keyboard arrows", 10, 40);
+            ctx.fillText("장애물을 피해 반대편으로 건너가기", 10, 20);
+            ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
         }
     }
 
