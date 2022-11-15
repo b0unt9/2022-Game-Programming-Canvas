@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             draw: function (b) {
-                ctx.fillStyle = "#ffffff";
+                ctx.fillStyle = "#5472d3";
                 ctx.fillRect(b.x, b.y, b.w, b.h);
             },
 
@@ -264,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillText("게임 오버!", 10, 50);
             ctx.fillText("다시 시작: [SPACE]", 10, 70);
         } else {
+            ctx.fillStyle = "#5472d3";
             ctx.fillText("장애물을 피해 반대편으로 건너가기", 10, 20);
             ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
             ctx.fillText("죽은 회수 : " + player.getDeath(),10,100);
