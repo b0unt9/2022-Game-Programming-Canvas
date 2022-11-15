@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var canvas = document.createElement("canvas");
+    var canvas = document.getElementById('game');
     var ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
