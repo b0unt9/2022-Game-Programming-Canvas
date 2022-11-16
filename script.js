@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var canvas = document.getElementById('game');
     var ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = window.innerHeight * 0.8;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     function rand(min, max, interval) {
         if (interval === undefined) interval = 1;
@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             die: function () {
-                dead = true;
                 let sound = new Audio('warning-sound.mp3');
                 sound.play();
-                death++;
+                dead = true;
+                ++death;
             },
 
-            getDeath: function() {
+            getDeath: function () {
                 return death;
             },
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             respawn: function () {
                 this.moveTo(100, canvas.height / 2);
                 this.draw();
-                blocks.run();
+                blocks.nextLevel();
             },
 
             isDead: function () {
@@ -83,44 +83,50 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
 
-    const blocks = (function () {
+    let blocks = (function () {
         let blocks = [],
+            level = 0,
+            level_factor = 1.20,
             start = {
                 n: 10,
                 x1: 210,
                 x2: 700,
                 h_min: 15,
-                h_max: 100,
-                speed_min: 0.5,
-                speed_max: 5,
-                direction : ['up','down']
+                h_max: 100 + level * 1.03,
+                speed_min: 0.5 + level * 1.03,
+                speed_max: 5 + level * 1.05,
+                direction: ['up', 'down']
             };
 
 
         function Block(direction) {
             this.w = 10;
-            this.h = 50;
-            this.x = rand(210, 700, 10);
-            this.y = canvas.height;
-            this.speed = 1;
+            this.h = rand(start.h_min, start.h_max);
+            this.x = rand(start.x1, start.x2, 10);
+            this.y = 0;
+            this.speed = rand(start.speed_min, start.speed_max);
             this.direction = direction;
-            if(direction === "up") {
-                this.y = canvas.height;
-            }
-            else {
-                this.y -= canvas.height;
+            if (direction === "up") {
+                this.y = canvas.height + rand(5, 350);
+            } else {
+                this.y -= rand(5, 350);
             }
         }
 
         return {
-            run: function () {
+            getLevel: function () {
+                return level;
+            },
+
+            nextLevel: function () {
+                ++level;
                 blocks = [];
-                let n = Math.ceil(start.n + 1.3);
+                let n = Math.ceil(start.n + (level * level_factor));
                 this.createXBlocks(n);
             },
 
             draw: function (b) {
-                if(player.isDead()) ctx.fillStyle = "#d50000";
+                if (player.isDead()) ctx.fillStyle = "#d50000";
                 else ctx.fillStyle = "#5472d3";
                 ctx.fillRect(b.x, b.y, b.w, b.h);
             },
@@ -151,17 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     player.respawn();
                     return;
                 }
-
-                for (let i = 0; i < blocks.length; ++i) {
-                    if(blocks[i].direction === 'up') {
+                let len = blocks.length;
+                for (let i = 0; i < len; ++i) {
+                    if (blocks[i].direction === 'up') {
                         blocks[i].y -= blocks[i].speed;
-                        if((blocks[i].y + blocks[i].h) < 0) {
+                        if ((blocks[i].y + blocks[i].h) < 0) {
                             blocks[i].y = canvas.height + rand(10, 350);
                         }
-                    }
-                    else {
+                    } else {
                         blocks[i].y += blocks[i].speed;
-                        if(blocks[i].y > canvas.height) {
+                        if (blocks[i].y > canvas.height) {
                             blocks[i].y = 0;
                             blocks[i].y -= rand(10, 350);
                         }
@@ -193,13 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
         y: (canvas.height / 2),
         velY: 0,
         velX: 0,
-        speed: 1400,
+        speed: 1400 - blocks.getLevel() * 1.1 ,
         friction: 0.68,
         keys: []
     }
 
     function updateCtrl() {
-        if (ctrl.keys.Escape) {
+        if (ctrl.keys.Escape || (ctrl.keys[' '] && player.isDead())) {
             ctrl.x = 100;
             ctrl.y = canvas.height / 2;
             ctrl.velX = 0;
@@ -264,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctrl.keys[e.key] = false;
     });
 
-    blocks.run();
+    blocks.nextLevel();
 
     function update() {
         blocks.moveAll();
@@ -276,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
         blocks.drawZone();
         blocks.drawAll();
         player.draw();
-        ctx.fillStyle = "#ffffff";
         ctx.font = "14px Verdana";
 
         if (player.isDead()) {
@@ -288,7 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillText("장애물을 피해 반대편으로 건너가기", 10, 20);
             ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
             ctx.fillText("위치 초기화 : ESC", 10, 60);
-            ctx.fillText("죽은 회수 : " + player.getDeath(),10,100);
+            ctx.fillText("레벨 : " + blocks.getLevel(), 10, 120);
+            ctx.fillText("죽은 회수 : " + player.getDeath(), 10, 100);
         }
     }
 
