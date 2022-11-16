@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillText("키보드의 방향키로 이동 가능", 10, 40);
             ctx.fillText("위치 초기화 : ESC", 10, 60);
             ctx.fillText("레벨 : " + blocks.getLevel(), 10, 120);
-            ctx.fillText("죽은 회수 : " + player.getDeath(), 10, 100);
+            ctx.fillText("죽은 횟수 : " + player.getDeath(), 10, 100);
         }
     }
 
